@@ -1,0 +1,45 @@
+.products
+  %h3
+    = "The average age of managers is: #{@managers_ages}"
+
+  %h3 The Oldest Users List
+  %ol.oldest-users
+    - @oldest_users.each do |user|
+      %li= "#{user.first_name} #{user.last_name}"
+
+  -if @user && @user.role === 'admin'
+    - unless params[:show_changes]
+      = button_to 'Show Changes', root_path, method: :get, params: { show_changes: true}
+    - else
+      = button_to 'Default', root_path, method: :get
+
+  %h2 The Products List
+  %table
+    %tr
+      %th Name
+      %th Price
+      %th With Sale
+      - if show_changes?(@user, params)
+        %th User
+      - if @user
+        %th Actions
+      - @products.each do |product|
+        %tr{ class: "#{product.archived && 'archived-product'}"}
+          %td
+            = product_name(product.title, product.articul)
+          %td{ class: "#{product_class(product.sale)}" }
+            = product_price(product.price)
+          %td
+            = product_with_sale(product.sale, product.price)
+          - if show_changes?(@user, params)
+            %td
+              = link_to "#{changer_name(product.updated_by)}", user_path(product.updated_by)
+          - if @user
+            %td
+              %button.edit-button Edit
+              - if show_archive_btn?(@user)
+                = button_to archive_btn_title(product.archived),
+                            archive_products_path,
+                            method: :post,
+                            params: { id: product.id  },
+                            class: 'archive-button'

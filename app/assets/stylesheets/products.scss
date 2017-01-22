@@ -1,0 +1,43 @@
+// Place all the styles related to the ProductsController controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+.products {
+  max-width: 900px;
+  margin: 0 auto;
+
+  table, td, th {
+    border: 1px solid #ddd;
+    text-align: left;
+  }
+
+  table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+
+  th, td {
+    padding: 15px;
+  }
+
+  .sale-price {
+    text-decoration: line-through;
+    color: grey;
+    font-size: 0.9rem;
+  }
+
+  .oldest-users {
+    text-align: left;
+  }
+
+  .edit-button {
+    cursor: pointer;
+  }
+
+  .archive-button {
+    cursor: pointer;
+  }
+
+  .archived-product {
+    color: grey;
+  }
+}
